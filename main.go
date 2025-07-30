@@ -37,18 +37,36 @@ func checarStats() CharStats {
 }
 
 func prepararPoções(stats CharStats) {
+	var tipopocao int
 	var dificuldade int
-	fmt.Print("Qual a dificuldade para preparar a poção desejada? ")
-	fmt.Scan(&dificuldade)
+	fmt.Print("Qual poção voce quer preparar?\n1 - Vermelha, amarela ou branca\n2 - Alcool\n3 - Acido, Esfera Marinha, Fogo Grego ou Planta Carnivora\n4 - Azul, Analgesico, Aloe Vera, Embriao, Pocoes Anti-Propriedade ou Pocao Compacta Vermelha\n 5 - Compacta Amarela\n6 - Compacta Branca ou Revestimento")
+	fmt.Scan(&tipopocao)
 
-	chance := float64(stats.nvpesquisa) +
-		(float64(stats.nvclasse) * 0.2) +
-		(float64(stats.dex) * 0.1) +
-		(float64(stats.sor) * 0.1) +
-		(float64(stats.inteligencia) * 0.05) +
-		float64(dificuldade)
+	switch tipopocao {
+	case 1:
+		dificuldade = rand.Intn(11) + 15
+	case 2:
+		dificuldade = rand.Intn(11) + 5
+	case 3:
+		dificuldade = rand.Intn(11) - 5
+	case 4:
+		dificuldade = -5
+	case 5:
+		dificuldade = rand.Intn(6) - 10
+	case 6:
+		dificuldade = rand.Intn(11) - 15
+	default:
+		fmt.Print("Opcao invalida!")
 
-	fmt.Printf("A chance de preparar esta poção é de %.2f\n", chance)
+		chance := float64(stats.nvpesquisa) +
+			(float64(stats.nvclasse) * 0.2) +
+			(float64(stats.dex) * 0.1) +
+			(float64(stats.sor) * 0.1) +
+			(float64(stats.inteligencia) * 0.05) +
+			float64(dificuldade)
+
+		fmt.Printf("A chance de preparar esta poção é de %.2f\n", chance)
+	}
 }
 
 func farmacologiaAvançada(stats CharStats) {
